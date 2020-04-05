@@ -25,7 +25,7 @@
 */
 
 // ------------------------- SETTINGS --------------------
-#define DEBUG 1             // вывод лог инициализации датчиков при запуске через порт
+#define DEBUG 0             // вывод лог инициализации датчиков при запуске через порт
 #define DISPLAY_ADDR 0x27   // адрес платы дисплея: 0x27 или 0x3f. Если дисплей не работает - смени адрес! На самом дисплее адрес не указан
 
 // адрес BME280 жёстко задан в файле библиотеки Adafruit_BME280.h
@@ -33,7 +33,7 @@
 // Так что если юзаете НЕ библиотеку из архива - не забудьте поменять
 
 // timers
-#define SENS_TIMER 3000      // время обновления показаний сенсоров на экране, миллисекунд
+#define SENS_TIMER 15000      // время обновления показаний сенсоров на экране, миллисекунд
 #define CHECK_BRIGHT_TIMER 2000
 #define BLINK_RED_LED_TIMER 500
 #define MELODY_REPEAT_TIMEOUT 5000
@@ -41,17 +41,17 @@
 // brightness
 #define BRIGHT_THRESHOLD 150  // величина сигнала, ниже которой яркость переключится на минимум (0-1023)
 
-#define LCD_BRIGHT_MAX 190    // макс яркость подсветки дисплея (0 - 255)
+#define LCD_BRIGHT_MAX 150    // макс яркость подсветки дисплея (0 - 255)
 #define LCD_BRIGHT_MIN 10     // мин яркость подсветки дисплея (0 - 255)
 
 #define LED_BRIGHT_RED_MAX 60    // макс яркость светодиода СО2 (0 - 255)
-#define LED_BRIGHT_RED_MIN 5     // мин яркость светодиода СО2 (0 - 255)
+#define LED_BRIGHT_RED_MIN 1     // мин яркость светодиода СО2 (0 - 255)
 
 #define LED_BRIGHT_GREEN_MAX 10    // макс яркость светодиода СО2 (0 - 255)
-#define LED_BRIGHT_GREEN_MIN 3     // мин яркость светодиода СО2 (0 - 255)
+#define LED_BRIGHT_GREEN_MIN 1     // мин яркость светодиода СО2 (0 - 255)
 
 #define LED_BRIGHT_YELLOW_MAX 100    // макс яркость светодиода СО2 (0 - 255)
-#define LED_BRIGHT_YELLOW_MIN 60     // мин яркость светодиода СО2 (0 - 255)
+#define LED_BRIGHT_YELLOW_MIN 10     // мин яркость светодиода СО2 (0 - 255)
 
 // pins
 #define BACKLIGHT_PIN 10
