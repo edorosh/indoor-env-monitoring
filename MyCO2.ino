@@ -83,6 +83,7 @@
 #include <rtttl.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
+#include "LowPower.h"
 
 GButton button(BTN_PIN);
 GButton muteButton(BTN_MUTE_PIN);
@@ -92,12 +93,12 @@ MHZ19_uart mhz19;
 Adafruit_BME280 bme;
 
 GTimer sensorsTimer(MS, SENS_TIMER);
-GTimer drawSensorsTimer(MS, SENS_TIMER);
 GTimer brightTimer(MS, CHECK_BRIGHT_TIMER);
 GTimer redLedBlink(MS, BLINK_RED_LED_TIMER);
 GTimer melodyRepeatTimeout(MS);
 
 boolean playMelody = false;
+bool redLedOnFlag = false;
 
 byte LED_OFF = 0;
 
@@ -182,6 +183,9 @@ void loop() {
   // читаем показания датчиков
   if (sensorsTimer.isReady()) {
     readSensors();
+    handleLcd();
+    handleLeds();
+    handleAlarm();
   }
 
   // яркость
@@ -189,17 +193,16 @@ void loop() {
     checkBrightness(); 
     applyBrightness();
   }
-  
-  // обработка значения сенсоров
-  if (drawSensorsTimer.isReady()) {
-    handleLcd();
-    handleLeds();
-    handleAlarm();
-  }
 
   // Мигание диода
   if (redLedBlink.isReady()) {
     blinkLedRed();
+  }
+
+  // Уходим в экономный режим
+  if (!redLedBlink.isEnabled() && !playMelody) {
+    LowPower.idle(SLEEP_500MS, ADC_OFF, TIMER2_OFF, TIMER1_ON, TIMER0_ON, 
+      SPI_OFF, USART0_OFF, TWI_OFF);
   }
 }
 
@@ -381,7 +384,6 @@ void playAlarmIfNeeded() {
 }
 
 void blinkLedRed() {
- static bool redLedOnFlag = false;
   redLedOnFlag = !redLedOnFlag;
   
   analogWrite(LED_R, redLedOnFlag ? LED_BRIGHT_RED : LED_OFF);
