@@ -33,7 +33,7 @@
 // Так что если юзаете НЕ библиотеку из архива - не забудьте поменять
 
 // timers
-#define SENS_TIMER 15000      // время обновления показаний сенсоров на экране, миллисекунд
+#define SENS_TIMER 5500      // время обновления показаний сенсоров на экране, миллисекунд. Период обновления MHZ-19B 5сек
 #define CHECK_BRIGHT_TIMER 2000
 #define BLINK_RED_LED_TIMER 500
 #define MELODY_REPEAT_TIMEOUT 5000
